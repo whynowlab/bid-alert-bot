@@ -2,6 +2,7 @@
 from __future__ import annotations
 from datetime import datetime
 from dataclasses import dataclass
+from pathlib import Path
 from sqlalchemy import create_engine, Column, Integer, String, Float, Boolean, Text, DateTime, UniqueConstraint
 from sqlalchemy.orm import sessionmaker, declarative_base
 
@@ -59,6 +60,9 @@ class DB:
 
 
 def open_db(db_path: str) -> DB:
+    # 폴더 자동 생성
+    Path(db_path).parent.mkdir(parents=True, exist_ok=True)
+    
     engine = create_engine(f"sqlite:///{db_path}", echo=False)
     SessionLocal = sessionmaker(bind=engine)
     Base.metadata.create_all(engine)
