@@ -71,21 +71,21 @@ def check_and_notify(days_back: int = 1) -> dict:
 
     print(f"신규 공고: {len(new_bids)}개")
 
-    # 알림 발송 (점수 20 이상만)
+    # 알림 발송 (점수 30 이상만)
     sent = 0
     for bid in new_bids:
-        if bid.score >= 20:
+        if bid.score >= 30:
             msg = format_bid_message(bid)
             if send_telegram(token, chat_id, msg):
                 sent += 1
-                print(f"  📢 알림: {bid.title[:20]}...")
+                print(f"  📢 알림: {bid.title[:30]}...")
 
     # 요약 메시지
     if new_bids:
         summary = f"""📊 <b>입찰공고 수집 완료</b>
 
 🆕 신규: {len(new_bids)}개
-📢 알림: {sent}개 (점수 20+)
+📢 알림: {sent}개 (점수 30+)
 🕐 수집시간: {datetime.now().strftime('%m/%d %H:%M')}
 """
         send_telegram(token, chat_id, summary)
