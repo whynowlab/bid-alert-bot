@@ -1,0 +1,68 @@
+regions:
+  - 서울
+  - 인천
+  - 경기
+
+facility_scores:
+  데이터센터: 95
+  IDC: 95
+  전산센터: 95
+  산업단지: 85
+  물류센터: 85
+  백화점: 80
+  복합쇼핑몰: 80
+  공공청사: 75
+  학교: 60
+  어린이집: 55
+
+keywords:
+  high_intent:
+    - 차량방호
+    - 방호볼라드
+    - 볼라드
+    - 출입통제
+    - 차량차단기
+    - 차량방벽
+    - 진입방지
+    - 보안시설
+    - 테러방지
+    - 안전펜스
+  facilities:
+    - 데이터센터
+    - IDC
+    - 전산센터
+    - 클라우드센터
+    - 물류센터
+    - 산업단지
+    - 공공청사
+    - 학교
+    - 어린이집
+    - 백화점
+    - 쇼핑몰
+    - R&D센터
+    - 연구소
+  new_construction:
+    - 신축
+    - 건립
+    - 증축
+    - 조성
+    - 구축
+    - 설치공사
+
+scoring:
+  keyword_high_intent: 20
+  keyword_facility: 10
+  keyword_new_construction: 15
+  region_match: 10
+  budget_present: 5
+
+api:
+  nara:
+    base_url: "https://apis.data.go.kr/1230000/ad/BidPublicInfoService"
+    endpoints:
+      - name: construction
+        path: /getBidPblancListInfoCnstwk
+      - name: service
+        path: /getBidPblancListInfoServc
+      - name: goods
+        path: /getBidPblancListInfoThng
