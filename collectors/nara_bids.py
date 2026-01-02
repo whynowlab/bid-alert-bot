@@ -94,6 +94,12 @@ class NaraBidsCollector(BaseCollector):
     def _score_and_save(self, bids: List[Dict]) -> int:
         keywords_high = set(kw.lower() for kw in self.settings.keywords_high_intent)
         keywords_fac = set(kw.lower() for kw in self.settings.keywords_facilities)
+        
+        # 제외 키워드 로드
+        exclude_keywords = set()
+        if hasattr(self.settings, 'keywords_exclude'):
+            exclude_keywords = set(kw.lower() for kw in self.settings.keywords_exclude)
+        
         regions = set(self.settings.regions)
         scoring = self.settings.scoring
 
@@ -105,6 +111,10 @@ class NaraBidsCollector(BaseCollector):
                 org = str(bid.get("ntceInsttNm", "") or "")
                 demand = str(bid.get("dminsttNm", "") or "")
                 text = (title + " " + org + " " + demand).lower()
+
+                # 제외 키워드 체크 - 있으면 스킵
+                if any(ex in text for ex in exclude_keywords):
+                    continue
 
                 score = 0
                 matched = []
