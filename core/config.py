@@ -13,6 +13,7 @@ class Settings:
     facility_scores: Dict[str, int] = field(default_factory=dict)
     keywords_high_intent: List[str] = field(default_factory=list)
     keywords_facilities: List[str] = field(default_factory=list)
+    keywords_exclude: List[str] = field(default_factory=list)
     scoring: Dict[str, int] = field(default_factory=dict)
     api: Dict[str, Any] = field(default_factory=dict)
 
@@ -42,6 +43,7 @@ def load_settings(path: str = "config.yaml") -> Settings:
         facility_scores=raw.get("facility_scores", {}),
         keywords_high_intent=raw.get("keywords", {}).get("high_intent", []),
         keywords_facilities=raw.get("keywords", {}).get("facilities", []),
+        keywords_exclude=raw.get("keywords", {}).get("exclude", []),
         scoring=raw.get("scoring", {}),
         api=raw.get("api", {}),
     )
