@@ -135,7 +135,10 @@ class NaraBidsCollector(BaseCollector):
 
                 if not is_capital:
                     continue
-
+                 # high_intent 키워드가 최소 1개 이상 있어야 알림
+                has_high_intent = any(kw in matched for kw in keywords_high)
+                if not has_high_intent:
+                    continue
                 bid_no = bid.get("bidNtceNo", "")
                 bid_ord = str(bid.get("bidNtceOrd", "00"))
                 endpoint = bid.get("endpoint", "")
